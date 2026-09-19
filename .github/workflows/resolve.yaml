@@ -52,8 +52,10 @@ jobs:
             # Presets
             set -x ; set +e
             #--------------#
-            #Run
-            bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+            #Run (pub.ajam.dev is dead; _init_deps.sh is the Toolpacks-based
+            #replacement, curled from conceal since it doesn't live in this repo)
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
+            dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
           continue-on-error: true
 
         - name: Download & Run Resolver
@@ -118,8 +120,10 @@ jobs:
             # Presets
             set -x ; set +e
             #--------------#
-            #Run
-            bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+            #Run (pub.ajam.dev is dead; _init_deps.sh is the Toolpacks-based
+            #replacement, curled from conceal since it doesn't live in this repo)
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
+            dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
           continue-on-error: true
 
         - name: Download & Run Resolver
@@ -186,8 +190,10 @@ jobs:
             # Presets
             set -x ; set +e
             #--------------#
-            #Run
-            bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+            #Run (pub.ajam.dev is dead; _init_deps.sh is the Toolpacks-based
+            #replacement, curled from conceal since it doesn't live in this repo)
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
+            dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
           continue-on-error: true
 
         - name: Setup Env
