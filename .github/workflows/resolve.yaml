@@ -1,0 +1,224 @@
+name: 🛰️ Resolve || 🔰 Clean Subs 📡
+#MAX_RUNTIME: 30-60 Minutes
+on:
+  workflow_dispatch: # Whenever manually run from actions-tab
+ # Uncomment & Trigger manually 
+ # schedule:
+ # - cron: "15 20 * * *" #( 08:15 PM UTC --> 02:00 AM Midnight )
+#------------------------------------------------------------------------------------#    
+env:
+  # DO NOT MODIFY ANYTHING ELSE
+  INVENTORY_REPO_USER: "${{ secrets.INVENTORY_REPO_USER }}"
+  INVENTORY_REPO_TOKEN: "${{ secrets.INVENTORY_REPO_TOKEN }}"
+#------------------------------------------------------------------------------------#  
+jobs:
+#------------------------------------------------------------------------------------#
+    puredns-resolve:
+      name: Resolve with PureDNS
+      runs-on: ubuntu-latest
+      
+      steps:        
+        - name: Checkout repository
+          uses: actions/checkout@v4
+          with:
+            path: main
+            filter: "blob:none" #https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+
+        - name: Install Coreutils
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            sudo apt update -y
+            sudo apt install coreutils curl dos2unix jq moreutils wget -y
+            pip install ansi2txt
+            #Subzuf
+            pip3 install "git+https://github.com/elceef/subzuf.git"
+            # Do again, sometimes fails
+            sudo apt install coreutils curl dos2unix jq moreutils wget -y
+            pip install ansi2txt
+            #Subzuf
+            pip3 install "git+https://github.com/elceef/subzuf.git"            
+            # For TG BOT Notifs
+            pip install apprise 
+            pip install apprise 2>/dev/null
+            # For neofetch
+            pip install archey4
+            pip install archey4 2>/dev/null
+          continue-on-error: true
+  
+        - name: Install Addons & Deps
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            #Run
+            bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+          continue-on-error: true
+
+        - name: Download & Run Resolver
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            # Download
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/resolve_domains_puredns.sh" -o "./resolve_domains_puredns.sh"
+            # Dos2unix
+            dos2unix "./resolve_domains_puredns.sh"
+            # chmod +xwr
+            sudo chmod +xwr "./resolve_domains_puredns.sh"
+            # Run
+            # Always run with STD_OUT + STD_IN >/dev/null
+            bash "./resolve_domains_puredns.sh" >/dev/null 2>&1
+          continue-on-error: true
+
+        - name: Upload_PureDNS_Output
+          uses: actions/upload-artifact@v4
+          with:
+              name: resdns_puredns
+              path: |
+                /tmp/resdns_puredns_output.7z
+#------------------------------------------------------------------------------------#
+    shuffledns-resolve:
+      name: Resolve with ShuffleDNS
+      runs-on: ubuntu-latest
+      
+      steps:        
+        - name: Checkout repository
+          uses: actions/checkout@v4
+          with:
+            path: main  
+            filter: "blob:none" #https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+
+        - name: Install Coreutils
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            sudo apt update -y
+            sudo apt install coreutils curl dos2unix jq moreutils wget -y
+            pip install ansi2txt
+            #Subzuf
+            pip3 install "git+https://github.com/elceef/subzuf.git"
+            # Do again, sometimes fails
+            sudo apt install coreutils curl dos2unix jq moreutils wget -y
+            pip install ansi2txt
+            #Subzuf
+            pip3 install "git+https://github.com/elceef/subzuf.git"            
+            # For TG BOT Notifs
+            pip install apprise 
+            pip install apprise 2>/dev/null
+            # For neofetch
+            pip install archey4
+            pip install archey4 2>/dev/null
+          continue-on-error: true
+  
+        - name: Install Addons & Deps
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            #Run
+            bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+          continue-on-error: true
+
+        - name: Download & Run Resolver
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            # Download
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/resolve_domains_shuffledns.sh" -o "./resolve_domains_shuffledns.sh"
+            # Dos2unix
+            dos2unix "./resolve_domains_shuffledns.sh"
+            # chmod +xwr
+            sudo chmod +xwr "./resolve_domains_shuffledns.sh"
+            # Run
+            # Always run with STD_OUT + STD_IN >/dev/null
+            bash "./resolve_domains_shuffledns.sh" >/dev/null 2>&1
+          continue-on-error: true
+
+        - name: Upload_ShuffleDNS_Output
+          uses: actions/upload-artifact@v4
+          with:
+              name: resdns_shuffledns
+              path: |
+                /tmp/resdns_shuffledns_output.7z
+#------------------------------------------------------------------------------------#     
+
+    resolve-domains:
+      name: 🛰️ Resolve || 🔰 Clean Subs 📡
+      runs-on: ubuntu-latest
+      needs: [puredns-resolve, shuffledns-resolve]
+      
+      steps:        
+        - name: Checkout repository
+          uses: actions/checkout@v4
+          with:
+            path: main  
+            filter: "blob:none" #https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+            
+        - name: Install Coreutils
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            sudo apt update -y
+            sudo apt install coreutils curl dos2unix jq moreutils wget -y
+            pip install ansi2txt
+            #Subzuf
+            pip3 install "git+https://github.com/elceef/subzuf.git"
+            # Do again, sometimes fails
+            sudo apt install coreutils curl dos2unix jq moreutils wget -y
+            pip install ansi2txt
+            #Subzuf
+            pip3 install "git+https://github.com/elceef/subzuf.git"            
+            # For TG BOT Notifs
+            pip install apprise 
+            pip install apprise 2>/dev/null
+            # For neofetch
+            pip install archey4
+            pip install archey4 2>/dev/null
+          continue-on-error: true
+  
+        - name: Install Addons & Deps
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            #Run
+            bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+          continue-on-error: true
+
+        - name: Setup Env
+          run: |
+            # Create tmp dir for resolvers
+            mkdir /tmp/resolver
+
+        - name: Download Resolver from Artifacts
+          uses: actions/download-artifact@v4
+          with:
+            path: /tmp/resolver
+
+        - name: Download & Run Resolver
+          run: |
+            # Presets
+            set -x ; set +e
+            #--------------#
+            # Download
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/resolve_domains.sh" -o "./resolve_domains.sh"
+            # Dos2unix
+            dos2unix "./resolve_domains.sh"
+            # chmod +xwr
+            sudo chmod +xwr "./resolve_domains.sh"
+            # Run
+            # Always run with STD_OUT + STD_IN >/dev/null
+            bash "./resolve_domains.sh" >/dev/null 2>&1
+          continue-on-error: true
+
+        - name: Upload_Resolved_Output
+          uses: actions/upload-artifact@v4
+          with:
+              name: resolved_domains
+              path: |
+                /tmp/resolved_domains.7z
