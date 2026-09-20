@@ -217,9 +217,9 @@ jobs:
             dos2unix "./resolve_domains.sh"
             # chmod +xwr
             sudo chmod +xwr "./resolve_domains.sh"
-            # Run
-            # Always run with STD_OUT + STD_IN >/dev/null
-            bash "./resolve_domains.sh" >/dev/null 2>&1
+            # Run (visible output for debugging; was >/dev/null 2>&1, which hid
+            # the real crash reason on the last failed run)
+            bash "./resolve_domains.sh" 2>&1 | tee "/tmp/resolve_domains.log"
           continue-on-error: true
 
         - name: Upload_Resolved_Output
@@ -228,3 +228,4 @@ jobs:
               name: resolved_domains
               path: |
                 /tmp/resolved_domains.7z
+                /tmp/resolve_domains.log
