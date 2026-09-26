@@ -53,8 +53,8 @@ jobs:
             set -x ; set +e
             #--------------#
             #Run (pub.ajam.dev is dead; _init_deps.sh is the Toolpacks-based
-            #replacement, curled from conceal since it doesn't live in this repo)
-            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
+            #replacement, curled from rishi since it doesn't live in this repo)
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/hritikrosan/rishi/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
             dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
           continue-on-error: true
 
@@ -64,7 +64,7 @@ jobs:
             set -x ; set +e
             #--------------#
             # Download
-            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/resolve_domains_puredns.sh" -o "./resolve_domains_puredns.sh"
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/hritikrosan/rishi/main/.github/scripts/resolve_domains_puredns.sh" -o "./resolve_domains_puredns.sh"
             # Dos2unix
             dos2unix "./resolve_domains_puredns.sh"
             # chmod +xwr
@@ -121,8 +121,8 @@ jobs:
             set -x ; set +e
             #--------------#
             #Run (pub.ajam.dev is dead; _init_deps.sh is the Toolpacks-based
-            #replacement, curled from conceal since it doesn't live in this repo)
-            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
+            #replacement, curled from rishi since it doesn't live in this repo)
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/hritikrosan/rishi/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
             dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
           continue-on-error: true
 
@@ -132,7 +132,7 @@ jobs:
             set -x ; set +e
             #--------------#
             # Download
-            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/resolve_domains_shuffledns.sh" -o "./resolve_domains_shuffledns.sh"
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/hritikrosan/rishi/main/.github/scripts/resolve_domains_shuffledns.sh" -o "./resolve_domains_shuffledns.sh"
             # Dos2unix
             dos2unix "./resolve_domains_shuffledns.sh"
             # chmod +xwr
@@ -191,8 +191,8 @@ jobs:
             set -x ; set +e
             #--------------#
             #Run (pub.ajam.dev is dead; _init_deps.sh is the Toolpacks-based
-            #replacement, curled from conceal since it doesn't live in this repo)
-            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
+            #replacement, curled from rishi since it doesn't live in this repo)
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/hritikrosan/rishi/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
             dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
           continue-on-error: true
 
@@ -212,7 +212,7 @@ jobs:
             set -x ; set +e
             #--------------#
             # Download
-            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/handsomeslop/conceal/main/.github/scripts/resolve_domains.sh" -o "./resolve_domains.sh"
+            curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/hritikrosan/rishi/main/.github/scripts/resolve_domains.sh" -o "./resolve_domains.sh"
             # Dos2unix
             dos2unix "./resolve_domains.sh"
             # chmod +xwr
